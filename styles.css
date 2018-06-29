@@ -1,0 +1,33 @@
+html {
+  background-color: #4B1B99;
+}
+
+h1 {
+  font-family: 'Shrikhand', cursive;
+  font-size: 48px;
+  text-align: center;
+  color: #C1DB14;
+}
+
+.board {
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  background-color: white;
+  font-family: 'Indie Flower', cursive;
+  color: #C41254;
+}
+
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 64px;
+  border: 1px solid lightgrey;
+}
+
+.square:hover {
+  background-color: #D13A72;
+}
