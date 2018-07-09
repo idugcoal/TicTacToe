@@ -1,33 +1,37 @@
-function isGameOver(board ) {
+function isGameOver(board, player) {
   if (
-    board[0].innerText === board[1].innerText === board[2].innerText ||
-    board[3].innerText === board[4].innerText === board[5].innerText ||
-    board[6].innerText === board[7].innerText === board[8].innerText ||
-    board[0].innerText === board[3].innerText === board[6].innerText ||
-    board[1].innerText === board[4].innerText === board[7].innerText ||
-    board[2].innerText === board[5].innerText === board[8].innerText ||
-    board[0].innerText === board[4].innerText === board[8].innerText ||
-    board[2].innerText === board[4].innerText === board[6].innerText) 
+    board[0].innerText === player && board[1].innerText === player && board[2].innerText === player ||
+    board[3].innerText === player && board[4].innerText === player && board[5].innerText === player ||
+    board[6].innerText === player && board[7].innerText === player && board[8].innerText === player ||
+    board[0].innerText === player && board[3].innerText === player && board[6].innerText === player ||
+    board[1].innerText === player && board[4].innerText === player && board[7].innerText === player ||
+    board[2].innerText === player && board[5].innerText === player && board[8].innerText === player ||
+    board[0].innerText === player && board[4].innerText === player && board[8].innerText === player ||
+    board[2].innerText === player && board[4].innerText === player && board[6].innerText === player) 
   {
-    console.log('true')
+    console.log(player, 'wins')
     return true
-    
   }
 
   else{
-    console.log(
-      board[0].innerText.trim(), board[1].innerText.trim(), board[2].innerText.trim(),
-      'false', board)
+    console.log('false')
     return false
   }
 }
 
 function main() {
-  var board = document.querySelectorAll("div.square")
+  let currentTurn = 0
+  const players = ['X', 'O']
 
-  var players = ['X', 'O']
-  var currentTurn = 0
-  isGameOver(board)
+  const board = document.querySelectorAll("div.square")
+  
+  board.forEach(square => {
+    square.addEventListener('click', e => {
+      e.target.innerText = players[currentTurn % 2]
+      isGameOver(board, players[currentTurn % 2])
+      currentTurn++
+    })
+  })
 }
 
 main()
