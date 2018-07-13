@@ -1,4 +1,5 @@
 const board = [...document.querySelectorAll('div.square')];
+const winner = document.getElementById('winner');
 const players = ['X', 'O'];
 const wins = [
   [0, 1, 2],
@@ -48,7 +49,7 @@ function getCornerBox() {
   return temp[randomIndex];
 }
 
-function selectComputerMove() {
+function getComputerMove() {
   for (let i = 0; i < 8; i += 1) {
     const win = wins[i];
     if (board[win[0]].innerText === 'O' && board[win[1]].innerText === 'O' && board[win[2]].innerText === '') {
@@ -83,8 +84,8 @@ function selectComputerMove() {
 }
 
 function resetGame() {
-  const winner = document.getElementById('winner');
-  winner.innerHTML = players[(currentTurn % 2)];
+  winner.innerHTML = `The winner is ${players[(currentTurn % 2)]}!`;
+  winner.style.visibility = 'visible';
   currentTurn = 0;
   board.forEach((square) => {
     const temp = square;
@@ -95,6 +96,7 @@ function resetGame() {
 function main() {
   board.forEach((square) => {
     square.addEventListener('click', (e) => {
+      winner.style.visibility = 'hidden';
       if (e.target.innerText === '') {
         e.target.innerText = players[(currentTurn % 2)];
         if (isGameOver()) {
@@ -102,7 +104,7 @@ function main() {
           resetGame();
         } else currentTurn += 1;
         if ((currentTurn % 2) === 1) {
-          const computerMove = selectComputerMove();
+          const computerMove = getComputerMove();
           board[computerMove].innerText = players[(currentTurn % 2)];
           if (isGameOver()) {
             console.log(`The winner is ${players[(currentTurn % 2)]}!`);
