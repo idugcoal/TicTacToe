@@ -1,4 +1,4 @@
-const board = [...document.querySelectorAll('.square')];
+const board = [...document.querySelectorAll('div.square')];
 const players = ['X', 'O'];
 const wins = [
   [0, 1, 2],
@@ -19,7 +19,6 @@ function isGameOver() {
     if (board[win[0]].innerText === players[(currentTurn % 2)]
         && board[win[1]].innerText === players[(currentTurn % 2)]
         && board[win[2]].innerText === players[(currentTurn % 2)]) {
-      console.log(players[(currentTurn % 2)], 'WINS!!!');
       return true;
     }
   }
@@ -83,10 +82,9 @@ function selectComputerMove() {
   return getEmptyBox();
 }
 
-function reset() {
-  const winner = [...document.querySelectorAll('div.winner')];
-  winner.innerText = players[currentTurn % 2];
-  console.log('hello?', players[currentTurn % 2]);
+function resetGame() {
+  const winner = document.getElementById('winner');
+  winner.innerHTML = players[(currentTurn % 2)];
   currentTurn = 0;
   board.forEach((square) => {
     const temp = square;
@@ -98,14 +96,18 @@ function main() {
   board.forEach((square) => {
     square.addEventListener('click', (e) => {
       if (e.target.innerText === '') {
-        e.target.innerText = players[currentTurn % 2];
-        if (isGameOver()) reset();
-        else currentTurn += 1;
-        if (currentTurn % 2 === 1) {
+        e.target.innerText = players[(currentTurn % 2)];
+        if (isGameOver()) {
+          console.log('DRAW!!');
+          resetGame();
+        } else currentTurn += 1;
+        if ((currentTurn % 2) === 1) {
           const computerMove = selectComputerMove();
-          board[computerMove].innerText = players[currentTurn % 2];
-          if (isGameOver()) reset();
-          else currentTurn += 1;
+          board[computerMove].innerText = players[(currentTurn % 2)];
+          if (isGameOver()) {
+            console.log(`The winner is ${players[(currentTurn % 2)]}!`);
+            resetGame();
+          } else currentTurn += 1;
         }
       }
     });

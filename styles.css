@@ -31,3 +31,16 @@ h1 {
 .square:hover {
   background-color: #D13A72;
 }
+
+#winner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Shrikhand', cursive;
+  font-size: 48px;
+  background-color: green;
+  width: 600px;
+  height: 100px;
+  margin: 0 auto;
+  color: #C1DB14;
+}
