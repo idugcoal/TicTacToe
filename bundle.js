@@ -15,63 +15,63 @@ let currentTurn = 0;
 function isGameOver() {
   for (let i = 0; i < 8; i += 1) {
     const win = wins[i];
-    if (board[win[0]].innerText === players[(currentTurn % 2) + 1]
-        && board[win[1]].innerText === players[(currentTurn % 2) + 1]
-        && board[win[2]].innerText === players[(currentTurn % 2) + 1]) {
-      console.log(players[(currentTurn % 2) + 1], 'WINS!!!');
+    if (board[win[0]].innerText === players[(currentTurn % 2)]
+        && board[win[1]].innerText === players[(currentTurn % 2)]
+        && board[win[2]].innerText === players[(currentTurn % 2)]) {
+      console.log(players[(currentTurn % 2)], 'WINS!!!');
       return true;
     }
   }
-
   return false;
+}
+
+function getEmptyBoxes() {
+  const blank = [];
+  for (let i = 0; i < 8; i += 1) {
+    if (board[i].innerText === '') {
+      blank.push(i);
+    }
+  }
+  return blank;
 }
 
 function selectComputerMove() {
   for (let i = 0; i < 8; i += 1) {
     const win = wins[i];
-    // console.log(win[0], board[win[0]].innerText, win[1], board[win[1]].innerText, win[2], board[win[2]].innerText);
     if (board[win[0]].innerText === 'O' && board[win[1]].innerText === 'O' && board[win[2]].innerText === '') {
-      board[win[2]].innerText = 'O';
-      console.log('win1 ', win[2]);
-      break;
-    } else if (board[win[0]].innerText === 'O' && board[win[2]].innerText === 'O' && board[win[1]].innerText === '') {
-      board[win[1]].innerText = 'O';
-      console.log('win2');
-      break;
-    } else if (board[win[1]].innerText === 'O' && board[win[2]].innerText === 'O' && board[win[0]].innerText === '') {
-      board[win[0]].innerText = 'O';
-      console.log('win3');
-      break;
+      return win[2];
+    }
+    if (board[win[0]].innerText === 'O' && board[win[2]].innerText === 'O' && board[win[1]].innerText === '') {
+      return win[1];
+    }
+    if (board[win[1]].innerText === 'O' && board[win[2]].innerText === 'O' && board[win[0]].innerText === '') {
+      return win[0];
     }
   }
   for (let i = 0; i < 8; i += 1) {
     const win = wins[i];
     if (board[win[0]].innerText === 'X' && board[win[1]].innerText === 'X' && board[win[2]].innerText === '') {
-      board[win[2]].innerText = 'O';
-      console.log('win4');
-      break;
-    } else if (board[win[0]].innerText === 'X' && board[win[2]].innerText === 'X' && board[win[1]].innerText === '') {
-      board[win[1]].innerText = 'O';
-      console.log('win5');
-      break;
-    } else if (board[win[1]].innerText === 'X' && board[win[2]].innerText === 'X' && board[win[0]].innerText === '') {
-      board[win[0]].innerText = 'O';
-      console.log('win6');
-      break;
+      return win[2];
+    }
+    if (board[win[0]].innerText === 'X' && board[win[2]].innerText === 'X' && board[win[1]].innerText === '') {
+      return win[1];
+    }
+    if (board[win[1]].innerText === 'X' && board[win[2]].innerText === 'X' && board[win[0]].innerText === '') {
+      return win[0];
     }
   }
   if (currentTurn === 1) {
     if (board[4].innerText === '') {
-      board[4].innerText = 'O';
-    } else {
-      board[8].innerText = 'O';
+      return 4;
     }
+    return 8;
   }
-
-  console.log('after IFs', currentTurn);
-  currentTurn += 1;
-  isGameOver();
+  const emptyBoxes = getEmptyBoxes();
+  const randomIndex = Math.floor(Math.random() * emptyBoxes.length);
+  const boardMark = emptyBoxes[randomIndex];
+  return boardMark;
 }
+
 
 function main() {
   board.forEach((square) => {
@@ -80,8 +80,11 @@ function main() {
         e.target.innerText = players[currentTurn % 2];
         isGameOver();
         currentTurn += 1;
-        if (currentTurn % 2 === 1) {
-          selectComputerMove();
+        if (currentTurn % 2 === 1 && currentTurn < 9) {
+          const computerMove = selectComputerMove();
+          board[computerMove].innerText = players[currentTurn % 2];
+          isGameOver();
+          currentTurn += 1;
         }
       }
     });
