@@ -1,7 +1,8 @@
-let currentTurn = 0
+/*eslint-disable */
+let currentTurn = 0;
 
 function isGameOver(board, player) {
-  let wins = [
+  const wins = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -9,27 +10,24 @@ function isGameOver(board, player) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
-  ]
+    [2, 4, 6],
+  ];
 
-  wins.forEach(win => {
-    if(board[win[0]].innerText === player && board[win[1]].innerText === player && board[win[2]].innerText === player) {
-      console.log('WINNNNN')
-      return true
+  wins.forEach((win) => {
+    if (board[win[0]].innerText === player
+        && board[win[1]].innerText === player
+        && board[win[2]].innerText === player) {
+      console.log(player, 'wins');
+      return true;
     }
-  })
+  });
 
-  return false
-}
 
-function findEmpty(board, wins) {
-  return wins.filter((win, item) => {
-    console.log(win, item)
-  })
+  return false;
 }
 
 function findPairs(board) {
-  let wins = [
+  const wins = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -37,72 +35,46 @@ function findPairs(board) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
-  ]
-  for (let win of wins) {
-  // wins.forEach((win, i) => {
+    [2, 4, 6],
+  ];
+
+  for (const win of wins) {
     //look for any empty pairs and place for win
-    if(board[win[0]].innerText === 'O' && board[win[1]].innerText === 'O' && board[win[2]].innerText === '') {
-      console.log('Marked Spot: ', win[2])
-      board[win[2]].innerText = 'O'
+    console.log(board, win[0], win[1], win[2])
+    if (board[win[0]].innerText === 'O' && board[win[1]].innerText === 'O' && board[win[2]].innerText === '') {
+      board[win[2]].innerText = 'O';
       currentTurn++
-      break
+      break;
     }
-    else if(board[win[0]].innerText === 'O' && board[win[2]].innerText === 'O' && board[win[1]].innerText === '') {
-      console.log('Marked Spot: ', win[1])
+    else if (board[win[0]].innerText === 'O' && board[win[2]].innerText === 'O' && board[win[1]].innerText === '') {
       board[win[1]].innerText = 'O'
       currentTurn++
       break
     }
-    else if(board[win[1]].innerText === 'O' && board[win[2]].innerText === 'O' && board[win[0]].innerText === '') {
-      console.log('Marked Spot: ', win[0])
+    else if (board[win[1]].innerText === 'O' && board[win[2]].innerText === 'O' && board[win[0]].innerText === '') {
       board[win[0]].innerText = 'O'
       currentTurn++
       break
     }
     //look for any other empty player pairs and place for block
-    else if(board[win[0]].innerText === 'X' && board[win[1]].innerText=== 'X' && board[win[2]].innerText === '') {
-      console.log('Marked Spot: ', win[2])
-      board[win[2]].innerText = 'O'
-      currentTurn++
-      break
-    }
-    else if(board[win[0]].innerText === 'X' && board[win[2]].innerText === 'X' && board[win[1]].innerText === '') {
-      console.log('Marked Spot: ', win[1])
-      board[win[1]].innerText = 'O'
-      currentTurn++
-      break
-    }
-    else if(board[win[1]].innerText === 'X' && board[win[2]].innerText === 'X' && board[win[0]].innerText === '') {
-      console.log('Marked Spot: ', win[0])
-      board[win[0]].innerText = 'O'
-      currentTurn++
-      break
-    }
     else {
-      console.log('ending else:')
       if(board[4].innerText === '') {
-        console.log('if')
+        console.log('center')
         board[4].innerText = 'O'
         currentTurn++
         break
       } else {
-        console.log('else')
+        console.log('corner')
         board[8].innerText = 'O'
         currentTurn++
         break
       }
     }
-  // })
 }
-  //look for an emtpy row/column/diagonal
-
-  //otherwise, place randomly
-
 }
 
 function selectComputerMove(board) {
-  findPairs(board)
+  findPairs(board);
 }
 
 function main() {
@@ -115,9 +87,7 @@ function main() {
         e.target.innerText = players[currentTurn % 2]
         isGameOver(board, players[currentTurn % 2])
         currentTurn++
-        console.log(currentTurn)
         if(currentTurn % 2 === 1) {
-          console.log('here')
           selectComputerMove(board)
         }
       }
@@ -125,4 +95,4 @@ function main() {
   })
 }
 
-main()
+main();
