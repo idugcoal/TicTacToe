@@ -13,6 +13,7 @@ const wins = [
 let currentTurn = 0;
 
 function isGameOver() {
+  if (currentTurn === 8) return true;
   for (let i = 0; i < 8; i += 1) {
     const win = wins[i];
     if (board[win[0]].innerText === players[(currentTurn % 2)]
@@ -25,14 +26,27 @@ function isGameOver() {
   return false;
 }
 
-function getEmptyBoxes() {
-  const blank = [];
-  for (let i = 0; i < 8; i += 1) {
+function getEmptyBox() {
+  const temp = [];
+  for (let i = 0; i < 9; i += 1) {
     if (board[i].innerText === '') {
-      blank.push(i);
+      temp.push(i);
     }
   }
-  return blank;
+  const randomIndex = Math.floor(Math.random() * temp.length);
+  return temp[randomIndex];
+}
+
+function getCornerBox() {
+  const corners = [0, 2, 6, 8];
+  const temp = [];
+  for (let i = 0; i < 4; i += 1) {
+    if (board[corners[i]].innerText === '') {
+      temp.push(corners[i]);
+    }
+  }
+  const randomIndex = Math.floor(Math.random() * temp.length);
+  return temp[randomIndex];
 }
 
 function selectComputerMove() {
@@ -64,27 +78,30 @@ function selectComputerMove() {
     if (board[4].innerText === '') {
       return 4;
     }
-    return 8;
+    return getCornerBox();
   }
-  const emptyBoxes = getEmptyBoxes();
-  const randomIndex = Math.floor(Math.random() * emptyBoxes.length);
-  const boardMark = emptyBoxes[randomIndex];
-  return boardMark;
+  return getEmptyBox();
 }
 
+function reset() {
+  currentTurn = 0;
+  board.forEach((square) => {
+    square.innerText = '';
+  });
+}
 
 function main() {
   board.forEach((square) => {
     square.addEventListener('click', (e) => {
       if (e.target.innerText === '') {
         e.target.innerText = players[currentTurn % 2];
-        isGameOver();
-        currentTurn += 1;
-        if (currentTurn % 2 === 1 && currentTurn < 9) {
+        if (isGameOver()) reset();
+        else currentTurn += 1;
+        if (currentTurn % 2 === 1) {
           const computerMove = selectComputerMove();
           board[computerMove].innerText = players[currentTurn % 2];
-          isGameOver();
-          currentTurn += 1;
+          if (isGameOver()) reset();
+          else currentTurn += 1;
         }
       }
     });
