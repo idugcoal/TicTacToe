@@ -14,13 +14,12 @@ const wins = [
 let currentTurn = 0;
 
 function isGameOver() {
-  if (currentTurn === 9) return true;
+  if (currentTurn === 8) return true;
   for (let i = 0; i < 8; i += 1) {
     const win = wins[i];
     if (board[win[0]].innerText === players[(currentTurn % 2)]
         && board[win[1]].innerText === players[(currentTurn % 2)]
         && board[win[2]].innerText === players[(currentTurn % 2)]) {
-      // console.log('winner: ', i, win);
       return true;
     }
   }
@@ -35,7 +34,7 @@ function getEmptyBox() {
     }
   }
   const randomIndex = Math.floor(Math.random() * temp.length);
-  return temp[randomIndex] || 0;
+  return temp[randomIndex];
 }
 
 function getCornerBox() {
@@ -100,7 +99,6 @@ function getComputerMove() {
   return getEmptyBox();
 }
 
-
 function resetGame() {
   currentTurn = 0;
   winner.style.visibility = 'hidden';
@@ -119,77 +117,27 @@ function showWinner() {
   });
 }
 
-function startGame(e) {
-  if ((e.target.innerText === '' && !isGameOver()) && currentTurn !== 9) {
+function playGame(e) {
+  if (e.target.innerText === '') {
     e.target.innerText = players[(currentTurn % 2)];
     currentTurn += 1;
-    console.log('currentTurn: ', currentTurn);
-  }
-  if (isGameOver()) {
-    console.log('DRAW!!');
-    showWinner();
-  }
-  if ((currentTurn % 2) === 1) {
-    const computerMove = getComputerMove();
-    board[computerMove].innerText = players[(currentTurn % 2)];
-    currentTurn += 1;
-    console.log('currentTurn: ', currentTurn);
-  }
-  if (isGameOver()) {
-    console.log('O WINS!!');
-    showWinner();
+    if ((currentTurn % 2) === 1) {
+      const computerMove = getComputerMove();
+      board[computerMove].innerText = players[(currentTurn % 2)];
+      if (isGameOver()) {
+        showWinner();
+      } else currentTurn += 1;
+    }
   }
 }
 
 function main() {
-  // board.forEach((square) => {
-  //   square.addEventListener('click', (e) => {
-  //     startGame(e);
-  //   });
-  // });
-
   board.forEach((square) => {
     square.addEventListener('click', (e) => {
-      if (isGameOver()) {
-        console.log('what happened here?');
-        showWinner();
-      }
-      if (e.target.innerText === '') {
-        e.target.innerText = players[(currentTurn % 2)];
-        if (isGameOver()) {
-          console.log('DRAW!!');
-          showWinner();
-        } else {
-          currentTurn += 1;
-        }
-        if ((currentTurn % 2) === 1) {
-          const computerMove = getComputerMove();
-          console.log('still makin moves');
-          board[computerMove].innerText = players[(currentTurn % 2)];
-          if (isGameOver()) {
-            console.log('O WINS!!');
-            showWinner();
-          } else currentTurn += 1;
-        }
-      }
+      if (!isGameOver()) playGame(e);
+      else showWinner();
     });
   });
 }
+
 main();
-/*
-each time a square is clicked:
-  if the game is over:
-    show winner
-  if the clicked square is blank:
-    make player's move
-    if the game is over:
-      show winner (this is the "draw" ending)
-    if the game is NOT over:
-      currentTurn++
-    if it's the computer's move:
-      make computer's move
-      if the game is over:
-        show winner
-      if the game is NOT over:
-        currentTurn++
-*/
