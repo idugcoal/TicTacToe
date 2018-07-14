@@ -12,8 +12,8 @@ h1 {
 .board {
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
   margin: 0 auto;
   background-color: white;
   font-family: 'Indie Flower', cursive;
@@ -24,13 +24,46 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 64px;
+  font-size: 96px;
   border: 1px solid lightgrey;
 }
 
 .square:hover {
   background-color: #D13A72;
 }
+
+.st {
+  width: 50px;
+   position: absolute;
+   background-color: #000000;
+   color: #000000;
+   border-color: #000000;
+   transform:rotate(-70deg);
+   -ms-transform:rotate(-70deg);
+   -moz-transform:rotate(-70deg);
+   -webkit-transform:rotate(-70deg);
+   -o-transform:rotate(-7deg);
+}
+/*
+.win-0, .win-1, .win-2 {
+   background-image:
+     repeating-linear-gradient(0deg, red, red 1px, transparent 1px, transparent 5px);
+}
+
+.win-3, .win-4, .win-5 {
+  background-image:
+    repeating-linear-gradient(90deg, red, red 1px, transparent 1px, transparent 5px);
+}
+
+.win-6 {
+  background-image:
+    repeating-linear-gradient(45deg, red, red 1px, transparent 1px, transparent 5px);
+}
+
+.win-7 {
+  background-image:
+    repeating-linear-gradient(-45deg, red, red 1px, transparent 1px, transparent 5px);
+}*/
 
 #winner {
   display: flex;

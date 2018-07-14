@@ -20,6 +20,7 @@ function isGameOver() {
     if (board[win[0]].innerText === players[(currentTurn % 2)]
         && board[win[1]].innerText === players[(currentTurn % 2)]
         && board[win[2]].innerText === players[(currentTurn % 2)]) {
+      console.log('winner: ', i, win);
       return true;
     }
   }
@@ -34,7 +35,7 @@ function getEmptyBox() {
     }
   }
   const randomIndex = Math.floor(Math.random() * temp.length);
-  return temp[randomIndex];
+  return temp[randomIndex] || 0;
 }
 
 function getCornerBox() {
@@ -83,32 +84,41 @@ function getComputerMove() {
   return getEmptyBox();
 }
 
+
 function resetGame() {
-  winner.innerHTML = `The winner is ${players[(currentTurn % 2)]}!`;
-  winner.style.visibility = 'visible';
   currentTurn = 0;
+  winner.style.visibility = 'hidden';
   board.forEach((square) => {
     const temp = square;
     temp.innerText = '';
   });
 }
 
+function showWinner() {
+  const winnerString = currentTurn % 2 === 1 ? 'O is the winner!' : 'This game is a draw!';
+  winner.innerHTML = `${winnerString}`;
+  winner.style.visibility = 'visible';
+  winner.addEventListener('click', (e) => {
+    e.target.click = resetGame();
+  });
+}
+
 function main() {
   board.forEach((square) => {
     square.addEventListener('click', (e) => {
-      winner.style.visibility = 'hidden';
+      if (isGameOver()) showWinner();
       if (e.target.innerText === '') {
         e.target.innerText = players[(currentTurn % 2)];
         if (isGameOver()) {
           console.log('DRAW!!');
-          resetGame();
+          showWinner();
         } else currentTurn += 1;
         if ((currentTurn % 2) === 1) {
           const computerMove = getComputerMove();
           board[computerMove].innerText = players[(currentTurn % 2)];
           if (isGameOver()) {
-            console.log(`The winner is ${players[(currentTurn % 2)]}!`);
-            resetGame();
+            console.log('O WINS!!');
+            showWinner();
           } else currentTurn += 1;
         }
       }
