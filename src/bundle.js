@@ -43,9 +43,8 @@ function reducedGameOver() {
       winningCondition = i;
       return true;
     }
-    
     return result;
-  }, false)
+  }, false);
 }
 
 function getEmptyBox() {
@@ -159,21 +158,16 @@ function showWinner() {
 function playGame(e) {
   if (e.target.innerText === '') {
     e.target.innerText = players[(currentTurn % 2)];
-    
     if (isGameOver()) {
-      return showWinner()
+      return showWinner();
     }
-    
     currentTurn += 1;
-    
     if ((currentTurn % 2) === 1) {
       const computerMove = getComputerMove();
       board[computerMove].innerText = players[(currentTurn % 2)];
-      
       if (isGameOver()) {
         return showWinner();
       }
-      
       currentTurn += 1;
     }
   }
@@ -182,7 +176,7 @@ function playGame(e) {
 function main() {
   board.forEach((square) => {
     square.addEventListener('click', (e) => {
-      playGame(e);
+      if (!isGameOver()) playGame(e);
     });
   });
 }
