@@ -12,18 +12,40 @@ const wins = [
   [2, 4, 6],
 ];
 let currentTurn = 0;
+let winningCondition = -1;
+let gameOver = false;
 
 function isGameOver() {
+  console.log('currentTurn: ', currentTurn);
   if (currentTurn === 8) return true;
   for (let i = 0; i < 8; i += 1) {
     const win = wins[i];
     if (board[win[0]].innerText === players[(currentTurn % 2)]
         && board[win[1]].innerText === players[(currentTurn % 2)]
         && board[win[2]].innerText === players[(currentTurn % 2)]) {
+      winningCondition = i;
       return true;
     }
   }
   return false;
+}
+
+function reducedGameOver() {
+  if (currentTurn === 8) return true;
+
+  wins.reduce((result, win, i) => {
+    if (result) return result;
+
+    if (board[win[0]].innerText === players[(currentTurn % 2)]
+      && board[win[1]].innerText === players[(currentTurn % 2)]
+      && board[win[2]].innerText === players[(currentTurn % 2)]
+    ) {
+      winningCondition = i;
+      return true;
+    }
+    
+    return result;
+  }, false)
 }
 
 function getEmptyBox() {
@@ -99,13 +121,29 @@ function getComputerMove() {
   return getEmptyBox();
 }
 
+function toggleWinningSquares() {
+  const winningSquares = wins[winningCondition];
+  winningSquares.forEach((square) => {
+    board[square].className += ` win-${winningCondition}`;
+  });
+}
+
+function removeClass() {
+  const winningSquares = document.querySelectorAll('div.square');
+  for (let i = 0; i < winningSquares.length; i += 1) {
+    winningSquares[i].classList.remove(`win-${winningCondition}`);
+  }
+}
+
 function resetGame() {
   currentTurn = 0;
   winner.style.visibility = 'hidden';
   board.forEach((square) => {
     const temp = square;
     temp.innerText = '';
+    temp.style.classList -= ` win-${winningCondition}`;
   });
+  removeClass();
 }
 
 function showWinner() {
@@ -115,18 +153,28 @@ function showWinner() {
   winner.addEventListener('click', (e) => {
     e.target.click = resetGame();
   });
+  if (currentTurn % 2 === 1) toggleWinningSquares();
 }
 
 function playGame(e) {
   if (e.target.innerText === '') {
     e.target.innerText = players[(currentTurn % 2)];
+    
+    if (isGameOver()) {
+      return showWinner()
+    }
+    
     currentTurn += 1;
+    
     if ((currentTurn % 2) === 1) {
       const computerMove = getComputerMove();
       board[computerMove].innerText = players[(currentTurn % 2)];
+      
       if (isGameOver()) {
-        showWinner();
-      } else currentTurn += 1;
+        return showWinner();
+      }
+      
+      currentTurn += 1;
     }
   }
 }
@@ -134,8 +182,7 @@ function playGame(e) {
 function main() {
   board.forEach((square) => {
     square.addEventListener('click', (e) => {
-      if (!isGameOver()) playGame(e);
-      else showWinner();
+      playGame(e);
     });
   });
 }

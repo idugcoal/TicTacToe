@@ -30,40 +30,32 @@ h1 {
 
 .square:hover {
   background-color: #D13A72;
+  color: lightgrey;
 }
 
-.st {
-  width: 50px;
-   position: absolute;
-   background-color: #000000;
-   color: #000000;
-   border-color: #000000;
-   transform:rotate(-70deg);
-   -ms-transform:rotate(-70deg);
-   -moz-transform:rotate(-70deg);
-   -webkit-transform:rotate(-70deg);
-   -o-transform:rotate(-7deg);
-}
-/*
 .win-0, .win-1, .win-2 {
-   background-image:
-     repeating-linear-gradient(0deg, red, red 1px, transparent 1px, transparent 5px);
+  background-color: rgb(188, 19, 74);  
+  color: white;
+  transition:all 1000ms ease;
 }
 
 .win-3, .win-4, .win-5 {
-  background-image:
-    repeating-linear-gradient(90deg, red, red 1px, transparent 1px, transparent 5px);
+  background-color: rgb(188, 19, 74);  
+  color: white;
+  transition:all 1000ms ease;
 }
 
 .win-6 {
-  background-image:
-    repeating-linear-gradient(45deg, red, red 1px, transparent 1px, transparent 5px);
+  background-color: rgb(188, 19, 74);
+  color: white;
+  transition:all 1000ms ease;
 }
 
 .win-7 {
-  background-image:
-    repeating-linear-gradient(-45deg, red, red 1px, transparent 1px, transparent 5px);
-}*/
+  background-color: rgb(188, 19, 74);
+  color: white;
+  transition:all 1000ms ease;
+}
 
 #winner {
   display: flex;
