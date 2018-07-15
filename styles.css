@@ -34,25 +34,25 @@ h1 {
 }
 
 .win-0, .win-1, .win-2 {
-  background-color: rgb(188, 19, 74);  
+  background-color: #C41254;  
   color: white;
   transition:all 1000ms ease;
 }
 
 .win-3, .win-4, .win-5 {
-  background-color: rgb(188, 19, 74);  
+  background-color: #C41254;  
   color: white;
   transition:all 1000ms ease;
 }
 
 .win-6 {
-  background-color: rgb(188, 19, 74);
+  background-color: #C41254;
   color: white;
   transition:all 1000ms ease;
 }
 
 .win-7 {
-  background-color: rgb(188, 19, 74);
+  background-color: #C41254;
   color: white;
   transition:all 1000ms ease;
 }
