@@ -54,11 +54,23 @@ function reducedGameOver() {
   }, false);
 }
 
-function isFork() {
-      console.log('true')
+function getForkBlocker() {
   for (let i = 0; i < 4; i += 1) {
     const fork = forks[i];
     console.log(fork)
+    if (board[fork[0]].innerText === 'X'
+      && board[fork[1]].innerText === 'X'
+      && board[fork[2]].innerText === ''
+    ) {
+      return fork[2];
+    }
+  }
+  return false
+}
+
+function isFork() {
+  for (let i = 0; i < 4; i += 1) {
+    const fork = forks[i];
     if (board[fork[0]].innerText === 'X'
       && board[fork[1]].innerText === 'X'
       && board[fork[2]].innerText === ''
@@ -138,7 +150,7 @@ function getComputerMove() {
     }
     return getCornerBox();
   }
-  if (isFork()) return getCornerBox();
+  if (isFork()) return getForkBlocker();
   if ((board[0].innerText === 'X' && board[8].innerText === 'X')
     || (board[2].innerText === 'X' && board[6].innerText === 'X')) {
     return getSideBox();
