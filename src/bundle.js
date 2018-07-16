@@ -23,24 +23,7 @@ let winningCondition = -1;
 
 function isGameOver() {
   if (currentTurn === 8) return true;
-  for (let i = 0; i < 8; i += 1) {
-    const win = wins[i];
-    if (board[win[0]].innerText === players[(currentTurn % 2)]
-        && board[win[1]].innerText === players[(currentTurn % 2)]
-        && board[win[2]].innerText === players[(currentTurn % 2)]
-    ) {
-      winningCondition = i;
-      gameOverFlag = true;
-      return true;
-    }
-  }
-  return false;
-}
-
-function reducedGameOver() {
-  if (currentTurn === 8) return true;
-
-  wins.reduce((result, win, i) => {
+  return wins.reduce((result, win, i) => {
     if (result) return result;
 
     if (board[win[0]].innerText === players[(currentTurn % 2)]
