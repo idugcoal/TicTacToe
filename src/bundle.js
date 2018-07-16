@@ -11,18 +11,26 @@ const wins = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+const forks = [
+  [1, 3, 0],
+  [1, 5, 2],
+  [3, 7, 6],
+  [5, 7, 8],
+];
+let gameOverFlag = false;
 let currentTurn = 0;
-let winningCondition = false;
+let winningCondition = -1;
 
 function isGameOver() {
-  // console.log('currentTurn: ', currentTurn);
   if (currentTurn === 8) return true;
   for (let i = 0; i < 8; i += 1) {
     const win = wins[i];
     if (board[win[0]].innerText === players[(currentTurn % 2)]
         && board[win[1]].innerText === players[(currentTurn % 2)]
-        && board[win[2]].innerText === players[(currentTurn % 2)]) {
+        && board[win[2]].innerText === players[(currentTurn % 2)]
+    ) {
       winningCondition = i;
+      gameOverFlag = true;
       return true;
     }
   }
@@ -46,7 +54,23 @@ function reducedGameOver() {
   }, false);
 }
 
+function isFork() {
+      console.log('true')
+  for (let i = 0; i < 4; i += 1) {
+    const fork = forks[i];
+    console.log(fork)
+    if (board[fork[0]].innerText === 'X'
+      && board[fork[1]].innerText === 'X'
+      && board[fork[2]].innerText === ''
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function getEmptyBox() {
+  console.log('getEmpty')
   const temp = [];
   for (let i = 0; i < 9; i += 1) {
     if (board[i].innerText === '') {
@@ -58,6 +82,7 @@ function getEmptyBox() {
 }
 
 function getCornerBox() {
+  console.log('getCorner')
   const corners = [0, 2, 6, 8];
   const temp = [];
   for (let i = 0; i < 4; i += 1) {
@@ -70,6 +95,7 @@ function getCornerBox() {
 }
 
 function getSideBox() {
+  console.log('getSide')
   const corners = [1, 3, 5, 7];
   const temp = [];
   for (let i = 0; i < 4; i += 1) {
@@ -112,6 +138,7 @@ function getComputerMove() {
     }
     return getCornerBox();
   }
+  if (isFork()) return getCornerBox();
   if ((board[0].innerText === 'X' && board[8].innerText === 'X')
     || (board[2].innerText === 'X' && board[6].innerText === 'X')) {
     return getSideBox();
@@ -129,10 +156,7 @@ function toggleWinningSquares() {
 function removeClass() {
   const winningSquares = document.querySelectorAll('div.square');
   for (let i = 0; i < winningSquares.length; i += 1) {
-    console.log(winningSquares[i].classList)
     winningSquares[i].classList.remove(`win-${winningCondition}`);
-    console.log('again', winningSquares[i].classList)
-
   }
 }
 
@@ -144,7 +168,8 @@ function resetGame() {
     temp.innerText = '';
   });
   removeClass();
-  winningCondition = false;
+  winningCondition = -1;
+  gameOverFlag = false;
 }
 
 function showWinner() {
@@ -158,8 +183,7 @@ function showWinner() {
 }
 
 function playGame(e) {
-  console.log('here', winningCondition);
-  if (e.target.innerText === '' && !winningCondition) {
+  if (e.target.innerText === '' && !gameOverFlag) {
     e.target.innerText = players[(currentTurn % 2)];
     if (isGameOver()) {
       return showWinner();
@@ -180,7 +204,6 @@ function playGame(e) {
 function main() {
   board.forEach((square) => {
     square.addEventListener('click', (e) => {
-      // if (!isGameOver()) playGame(e);
       playGame(e);
     });
   });

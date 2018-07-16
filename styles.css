@@ -31,6 +31,7 @@ h1 {
 .square:hover {
   background-color: #D13A72;
   color: lightgrey;
+  cursor: pointer;
 }
 
 .win-0, .win-1, .win-2 {
@@ -69,6 +70,10 @@ h1 {
   height: 100px;
   margin: 0 auto;
   color: #C1DB14;
+}
+
+#winner:hover {
+  cursor: pointer;
 }
 
 .subBanner {
