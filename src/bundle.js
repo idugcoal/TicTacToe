@@ -57,7 +57,6 @@ function reducedGameOver() {
 function getForkBlocker() {
   for (let i = 0; i < 4; i += 1) {
     const fork = forks[i];
-    console.log(fork)
     if (board[fork[0]].innerText === 'X'
       && board[fork[1]].innerText === 'X'
       && board[fork[2]].innerText === ''
@@ -65,7 +64,7 @@ function getForkBlocker() {
       return fork[2];
     }
   }
-  return false
+  return false;
 }
 
 function isFork() {
@@ -82,7 +81,6 @@ function isFork() {
 }
 
 function getEmptyBox() {
-  console.log('getEmpty')
   const temp = [];
   for (let i = 0; i < 9; i += 1) {
     if (board[i].innerText === '') {
@@ -94,7 +92,6 @@ function getEmptyBox() {
 }
 
 function getCornerBox() {
-  console.log('getCorner')
   const corners = [0, 2, 6, 8];
   const temp = [];
   for (let i = 0; i < 4; i += 1) {
@@ -107,7 +104,6 @@ function getCornerBox() {
 }
 
 function getSideBox() {
-  console.log('getSide')
   const corners = [1, 3, 5, 7];
   const temp = [];
   for (let i = 0; i < 4; i += 1) {
@@ -149,6 +145,15 @@ function getComputerMove() {
       return 4;
     }
     return getCornerBox();
+  }
+  if (currentTurn === 3) {
+    if ((board[0].innerText === 'X' && board[4].innerText === 'X' && board[8].innerText === 'O')
+      || (board[0].innerText === 'O' && board[4].innerText === 'X' && board[8].innerText === 'X')
+      || (board[2].innerText === 'X' && board[4].innerText === 'X' && board[6].innerText === 'O')
+      || (board[2].innerText === 'O' && board[4].innerText === 'X' && board[6].innerText === 'X')
+    ) {
+      return getCornerBox();
+    }
   }
   if (isFork()) return getForkBlocker();
   if ((board[0].innerText === 'X' && board[8].innerText === 'X')
