@@ -30,6 +30,7 @@ function isGameOver() {
       && board[win[1]].innerText === players[(currentTurn % 2)]
       && board[win[2]].innerText === players[(currentTurn % 2)]
     ) {
+      gameOverFlag = true;
       winningCondition = i;
       return true;
     }
