@@ -321,7 +321,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function showResult(state) {
   const winnerString = state.currentTurn % 2 === 1 ? 'O is the winner!' : 'This game is a draw!';
-  state.winner.innerHTML = `${winnerString}`;
+  state.winner.innerHTML = `${winnerString} <i class="fa fa-refresh fa-spin"></i>`;
   state.winner.style.visibility = 'visible';
   if (state.gameOverFlag) (0, _showWinningSquares2.default)(state);
   return false;
