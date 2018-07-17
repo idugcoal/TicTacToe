@@ -21,4 +21,13 @@ const gameOverFlag = false;
 const currentTurn = 0;
 const winningCondition = -1;
 
-export { board, winner, players, wins, forks, gameOverFlag, currentTurn, winningCondition };
+export {
+  board,
+  winner,
+  players,
+  wins,
+  forks,
+  gameOverFlag,
+  currentTurn,
+  winningCondition,
+};

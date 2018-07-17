@@ -1,5 +1,3 @@
-// import removeWinner from './util';
-
 export default function resetGame(state) {
   state.currentTurn = 0;
   state.winner.style.visibility = 'hidden';

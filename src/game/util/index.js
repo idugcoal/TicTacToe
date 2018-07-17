@@ -1,3 +1,2 @@
-export { default as highlightWinner } from './highlightWinner';
-// export { default as removeWinner } from './removeWinner';
-export { default as showWinner } from './showWinner';
+export { default as showWinningSquares } from './showWinningSquares';
+export { default as showResult } from './showResult';
