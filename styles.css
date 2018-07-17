@@ -63,13 +63,13 @@ h1 {
   visibility: hidden;
   justify-content: center;
   align-items: center;
-  font-family: 'Shrikhand', cursive;
-  font-size: 48px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 28px;
   background-color: #FBFCFF;
   width: 600px;
   height: 100px;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 20px;
   color: #011936;
   
 }
