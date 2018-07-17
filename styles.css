@@ -1,12 +1,12 @@
 html {
-  background-color: #4B1B99;
+  background-color: #9466E3;
 }
 
 h1 {
   font-family: 'Shrikhand', cursive;
-  font-size: 48px;
+  font-size: 56px;
   text-align: center;
-  color: #C1DB14;
+  color: #FFA984;
 }
 
 .board {
@@ -17,7 +17,7 @@ h1 {
   margin: 0 auto;
   background-color: white;
   font-family: 'Indie Flower', cursive;
-  color: #C41254;
+  color: #16EC45;
 }
 
 .square {
@@ -29,32 +29,28 @@ h1 {
 }
 
 .square:hover {
-  background-color: #D13A72;
+  background-color: #FFF084;
   color: lightgrey;
   cursor: pointer;
 }
 
 .win-0, .win-1, .win-2 {
-  background-color: #C41254;  
-  color: white;
+  background-color: #FFED64;  
   transition:all 1000ms ease;
 }
 
 .win-3, .win-4, .win-5 {
-  background-color: #C41254;  
-  color: white;
+  background-color: #FFED64;  
   transition:all 1000ms ease;
 }
 
 .win-6 {
-  background-color: #C41254;
-  color: white;
+  background-color: #FFED64;
   transition:all 1000ms ease;
 }
 
 .win-7 {
-  background-color: #C41254;
-  color: white;
+  background-color: #FFED64;
   transition:all 1000ms ease;
 }
 
@@ -65,17 +61,13 @@ h1 {
   align-items: center;
   font-family: 'Shrikhand', cursive;
   font-size: 48px;
-  background-color: green;
+  background-color: #6106FF;
   width: 600px;
   height: 100px;
   margin: 0 auto;
-  color: #C1DB14;
+  color: #16EC45;
 }
 
 #winner:hover {
   cursor: pointer;
-}
-
-.subBanner {
-  font-size: 12px;
 }
